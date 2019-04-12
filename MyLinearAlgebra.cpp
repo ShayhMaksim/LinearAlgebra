@@ -1,7 +1,7 @@
 /*
  * TVector.cpp
  *
- *  Created on: 31 дек. 2018 г.
+ *  Created on: 31 Г¤ГҐГЄ. 2018 ГЈ.
  *      Author: Maks
  */
 
@@ -49,14 +49,14 @@ TVector& TVector::operator =(const TVector& value)
 	{
 		if(n!=value.n)
 		{
-			//если память уже выделена,удалить ее
+			//ГҐГ±Г«ГЁ ГЇГ Г¬ГїГІГј ГіГ¦ГҐ ГўГ»Г¤ГҐГ«ГҐГ­Г ,ГіГ¤Г Г«ГЁГІГј ГҐГҐ
 			if (data) {delete[] data;}
-			//выделение новой памяти
+			//ГўГ»Г¤ГҐГ«ГҐГ­ГЁГҐ Г­Г®ГўГ®Г© ГЇГ Г¬ГїГІГЁ
 			data=new long double[value.n];
-			//сохранение нового размера
+			//Г±Г®ГµГ°Г Г­ГҐГ­ГЁГҐ Г­Г®ГўГ®ГЈГ® Г°Г Г§Г¬ГҐГ°Г 
 			n=value.n;
 		}
-		//перенос данных из правого операнда в левый
+		//ГЇГҐГ°ГҐГ­Г®Г± Г¤Г Г­Г­Г»Гµ ГЁГ§ ГЇГ°Г ГўГ®ГЈГ® Г®ГЇГҐГ°Г Г­Г¤Г  Гў Г«ГҐГўГ»Г©
        memcpy(data,value.data,sizeof(long double)*static_cast<unsigned int>(n));
 	}
 	return (*this);
@@ -295,7 +295,7 @@ TVector TVector::rotateByQuaternion(TQuaternion& Q) const
 
 TVector TVector::toreturnKrilov(TQuaternion& Q) const
 {
-	//yaw - рысканье; pitch - тангаж; roll - крен
+	//yaw - Г°Г»Г±ГЄГ Г­ГјГҐ; pitch - ГІГ Г­ГЈГ Г¦; roll - ГЄГ°ГҐГ­
 			long double yaw=atan((2*Q.scal()*Q.vect()[1]-2*Q.vect()[0]*Q.vect()[2])/(2*Q.scal()*Q.scal()+2*Q.vect()[0]*Q.vect()[0]-1));
 			long double pitch=asin((2*Q.vect()[0]*Q.vect()[1]+2*Q.scal()*Q.vect()[2]));
 			long double roll=atan((2*Q.scal()*Q.vect()[0]-2*Q.vect()[1]*Q.vect()[2])/(2*Q.scal()*Q.scal()+2*Q.vect()[1]*Q.vect()[1]-1));
@@ -314,9 +314,9 @@ TVector::~TVector() {
 }
 
 
-// Конструктор по умолчанию
+// ГЉГ®Г­Г±ГІГ°ГіГЄГІГ®Г° ГЇГ® ГіГ¬Г®Г«Г·Г Г­ГЁГѕ
 TMatrix::TMatrix() noexcept  : n(1), m(1), data(nullptr) {}
-// Конструктор с заданной размерностью
+// ГЉГ®Г­Г±ГІГ°ГіГЄГІГ®Г° Г± Г§Г Г¤Г Г­Г­Г®Г© Г°Г Г§Г¬ГҐГ°Г­Г®Г±ГІГјГѕ
 
 TMatrix::TMatrix(int n, int m) noexcept  : n(n),m(m), data(nullptr)
 {
@@ -331,7 +331,7 @@ TMatrix::TMatrix(int n, int m) noexcept  : n(n),m(m), data(nullptr)
 			data[i][j]=0;
 		}
 }
-// Конструктор копий
+// ГЉГ®Г­Г±ГІГ°ГіГЄГІГ®Г° ГЄГ®ГЇГЁГ©
 
 TMatrix::TMatrix(const TMatrix& rvalue) : n(1), m(1), data(nullptr)  {
 (*this) = rvalue;
@@ -339,8 +339,8 @@ TMatrix::TMatrix(const TMatrix& rvalue) : n(1), m(1), data(nullptr)  {
 
 TMatrix::TMatrix(long double ** A, int n, int m)
 {
-	this->n=n;// получение строк
-	this->m=m; //получение столбцов
+	this->n=n;// ГЇГ®Г«ГіГ·ГҐГ­ГЁГҐ Г±ГІГ°Г®ГЄ
+	this->m=m; //ГЇГ®Г«ГіГ·ГҐГ­ГЁГҐ Г±ГІГ®Г«ГЎГ¶Г®Гў
 
 	data=new long double*[n];
 		for(int i=0;i<n;i++)
@@ -357,20 +357,20 @@ TMatrix::TMatrix(long double ** A, int n, int m)
 			}
 }
 
-// Оператор присваивания
+// ГЋГЇГҐГ°Г ГІГ®Г° ГЇГ°ГЁГ±ГўГ ГЁГўГ Г­ГЁГї
 
 TMatrix& TMatrix::operator = (const TMatrix& rvalue) {
-// Если левый операнд не совпадает с правым
+// Г…Г±Г«ГЁ Г«ГҐГўГ»Г© Г®ГЇГҐГ°Г Г­Г¤ Г­ГҐ Г±Г®ГўГЇГ Г¤Г ГҐГІ Г± ГЇГ°Г ГўГ»Г¬
 if (this != &rvalue) {
-// Удаление ранее выделенной памяти
+// Г“Г¤Г Г«ГҐГ­ГЁГҐ Г°Г Г­ГҐГҐ ГўГ»Г¤ГҐГ«ГҐГ­Г­Г®Г© ГЇГ Г¬ГїГІГЁ
 this->~TMatrix();
-// Выделение новой памяти по размерам правого операнда
+// Г‚Г»Г¤ГҐГ«ГҐГ­ГЁГҐ Г­Г®ГўГ®Г© ГЇГ Г¬ГїГІГЁ ГЇГ® Г°Г Г§Г¬ГҐГ°Г Г¬ ГЇГ°Г ГўГ®ГЈГ® Г®ГЇГҐГ°Г Г­Г¤Г 
 this->Resize(rvalue.n, rvalue.m);
-// Перенос данных из правого операнда в левый построчно
+// ГЏГҐГ°ГҐГ­Г®Г± Г¤Г Г­Г­Г»Гµ ГЁГ§ ГЇГ°Г ГўГ®ГЈГ® Г®ГЇГҐГ°Г Г­Г¤Г  Гў Г«ГҐГўГ»Г© ГЇГ®Г±ГІГ°Г®Г·Г­Г®
 for (int i = 0; i < n; i++)
 memcpy(this->data[i], rvalue.data[i], sizeof(long double)*static_cast<unsigned>(m));
 }
-// Возврат ссылки на левый операнд для возможности цепочки присваиваний
+// Г‚Г®Г§ГўГ°Г ГІ Г±Г±Г»Г«ГЄГЁ Г­Г  Г«ГҐГўГ»Г© Г®ГЇГҐГ°Г Г­Г¤ Г¤Г«Гї ГўГ®Г§Г¬Г®Г¦Г­Г®Г±ГІГЁ Г¶ГҐГЇГ®Г·ГЄГЁ ГЇГ°ГЁГ±ГўГ ГЁГўГ Г­ГЁГ©
 return (*this);
 }
 
@@ -429,7 +429,7 @@ data=new long double*[n];
 	       this->m = m;
 }
 
-// Производящая функция для формирования единичной матрицы
+// ГЏГ°Г®ГЁГ§ГўГ®Г¤ГїГ№Г Гї ГґГіГ­ГЄГ¶ГЁГї Г¤Г«Гї ГґГ®Г°Г¬ГЁГ°Г®ГўГ Г­ГЁГї ГҐГ¤ГЁГ­ГЁГ·Г­Г®Г© Г¬Г ГІГ°ГЁГ¶Г»
 
 TMatrix TMatrix::E(int n) noexcept {
 TMatrix E(n,n);
@@ -444,7 +444,7 @@ for (int i = 0; i < n; i++) {
 return E;
 }
 
-// Оператор сложения матриц
+// ГЋГЇГҐГ°Г ГІГ®Г° Г±Г«Г®Г¦ГҐГ­ГЁГї Г¬Г ГІГ°ГЁГ¶
 
 TMatrix TMatrix::operator + (const TMatrix& arg) const {
 #ifdef _DEBUG
@@ -480,17 +480,17 @@ TVector TMatrix::operator * (const TVector& arg) const
 if ((n != arg.n))
 throw 1;
 #endif
-TVector V(GetColCount());
+TVector V(n);
 
-		for(int j=0;j<GetColCount();j++)
-		   {
-			 for(int i=0; i<GetRowCount();i++)
-			 {
-                 V[j]+=data[i][j]*arg[i];
-			 }         
-		   }
+for (int i = 0; i < n; i++)
+{
+    V[i] = 0;
+    for (int j = 0; j < m; j++)
+        V[i] += data[i][j] * arg[j];
+}
+
 return V;
-		}
+}
 
 TMatrix TMatrix::operator * (const TMatrix& arg) const
 		{
@@ -498,19 +498,17 @@ TMatrix TMatrix::operator * (const TMatrix& arg) const
 if ((n != arg.n) || (m != arg.m))
 throw 1;
 #endif
-TMatrix matrix(this->GetRowCount(),this->GetColCount());
-		for(int i=0;i<this->GetRowCount();i++)
-		{
-			for(int j=0;j<this->GetColCount();j++)
-			{
-				matrix(i, j)= 0;
-				for(int k=0;k<arg.GetColCount();k++)
-				{
-					matrix(i, j)= matrix(i, j)+arg(k, j)*data[i][k];
-				}
-			}
-		}
-		return matrix;
+TMatrix M(n, arg.m);
+
+for (int i = 0; i < M.n; i++)
+    for (int j = 0; j < M.m; j++)
+    {
+        M(i, j) = 0;
+        for (int k = 0; k < m; k++)
+            M(i,j) += data[i][k] * arg(k, j);
+    }
+
+return M;
 		}
 
 TMatrix TMatrix::operator * (long double arg) const
@@ -550,7 +548,7 @@ TMatrix TMatrix::operator - () const
 			}
 			return Neg;
 }
-// Деструктор объекта матрицы
+// Г„ГҐГ±ГІГ°ГіГЄГІГ®Г° Г®ГЎГєГҐГЄГІГ  Г¬Г ГІГ°ГЁГ¶Г»
 
 void TMatrix::Print()
 {
@@ -612,8 +610,8 @@ long double TMatrix::det() const
 
 			TMatrix mt2=(*this);
 
-			/*матрицы mt1 и mt2 необходимы,чтобы не испортить получаемую матрицу "this",которая может быть использована в других областях программы
-			строим треугольную матрицу*/
+			/*Г¬Г ГІГ°ГЁГ¶Г» mt1 ГЁ mt2 Г­ГҐГ®ГЎГµГ®Г¤ГЁГ¬Г»,Г·ГІГ®ГЎГ» Г­ГҐ ГЁГ±ГЇГ®Г°ГІГЁГІГј ГЇГ®Г«ГіГ·Г ГҐГ¬ГіГѕ Г¬Г ГІГ°ГЁГ¶Гі "this",ГЄГ®ГІГ®Г°Г Гї Г¬Г®Г¦ГҐГІ ГЎГ»ГІГј ГЁГ±ГЇГ®Г«ГјГ§Г®ГўГ Г­Г  Гў Г¤Г°ГіГЈГЁГµ Г®ГЎГ«Г Г±ГІГїГµ ГЇГ°Г®ГЈГ°Г Г¬Г¬Г»
+			Г±ГІГ°Г®ГЁГ¬ ГІГ°ГҐГіГЈГ®Г«ГјГ­ГіГѕ Г¬Г ГІГ°ГЁГ¶Гі*/
 			for(int i=0;i<this->GetColCount();i++)
 			{
 				if (mt1(i, i)==0 && i<this->GetRowCount()-1)
@@ -636,7 +634,7 @@ long double TMatrix::det() const
 
 					result=-result;
 				}
-				/*копирование рабочей матрицы в статическую мт2,необходимо для корректного расчета коэффициентов умножения строк перед вычитанием*/
+				/*ГЄГ®ГЇГЁГ°Г®ГўГ Г­ГЁГҐ Г°Г ГЎГ®Г·ГҐГ© Г¬Г ГІГ°ГЁГ¶Г» Гў Г±ГІГ ГІГЁГ·ГҐГ±ГЄГіГѕ Г¬ГІ2,Г­ГҐГ®ГЎГµГ®Г¤ГЁГ¬Г® Г¤Г«Гї ГЄГ®Г°Г°ГҐГЄГІГ­Г®ГЈГ® Г°Г Г±Г·ГҐГІГ  ГЄГ®ГЅГґГґГЁГ¶ГЁГҐГ­ГІГ®Гў ГіГ¬Г­Г®Г¦ГҐГ­ГЁГї Г±ГІГ°Г®ГЄ ГЇГҐГ°ГҐГ¤ ГўГ»Г·ГЁГІГ Г­ГЁГҐГ¬*/
 				for(int x=0;x<this->GetRowCount();x++)
 				{
 					for(int y=0;y<this->GetColCount();y++)
@@ -644,7 +642,7 @@ long double TMatrix::det() const
 						mt2(x, y)= mt1(x, y);
 					}
 				}
-				//зануление i-того столбца
+				//Г§Г Г­ГіГ«ГҐГ­ГЁГҐ i-ГІГ®ГЈГ® Г±ГІГ®Г«ГЎГ¶Г 
 				long double tmp;
 				for(int j=i+1;j<this->GetRowCount();j++)
 				{
@@ -654,7 +652,7 @@ long double TMatrix::det() const
 						mt1(j, k)= tmp;
 					}
 				}
-				//вычисление определителя
+				//ГўГ»Г·ГЁГ±Г«ГҐГ­ГЁГҐ Г®ГЇГ°ГҐГ¤ГҐГ«ГЁГІГҐГ«Гї
 			}
 			for(int x=0;x<this->GetRowCount();x++)
 			{
@@ -786,7 +784,7 @@ TQuaternion::TQuaternion(long double l0, long double l1, long double l2, long do
 TQuaternion::TQuaternion(long double phi, const TVector& e)
 {
 	            try {
-                if (e.GetSize()!=3)  throw "Неверно задан вектор оси поворота";
+                if (e.GetSize()!=3)  throw "ГЌГҐГўГҐГ°Г­Г® Г§Г Г¤Г Г­ ГўГҐГЄГІГ®Г° Г®Г±ГЁ ГЇГ®ГўГ®Г°Г®ГІГ ";
 				this->q0=cos(phi/2);
 		    	Q=e;
 		    	Q=Q.norm();
@@ -798,8 +796,8 @@ TQuaternion::TQuaternion(long double phi, const TVector& e)
 				}
 }
 
-TQuaternion::TQuaternion(long double yaw,long double pitch,long double roll)//задается в градусной мере
-    //yaw - рысканье; pitch - тангаж; roll - крен
+TQuaternion::TQuaternion(long double yaw,long double pitch,long double roll)//Г§Г Г¤Г ГҐГІГ±Гї Гў ГЈГ°Г Г¤ГіГ±Г­Г®Г© Г¬ГҐГ°ГҐ
+    //yaw - Г°Г»Г±ГЄГ Г­ГјГҐ; pitch - ГІГ Г­ГЈГ Г¦; roll - ГЄГ°ГҐГ­
     {
     	this->q0=cos(roll/2)*cos(yaw/2)*cos(pitch/2)-sin(roll/2)*sin(yaw/2)*sin(pitch/2);
     	TVector Q(3);
@@ -811,7 +809,7 @@ TQuaternion::TQuaternion(long double yaw,long double pitch,long double roll)//за
 
 TQuaternion::TQuaternion(const TQuaternion& rvalue) {*this=rvalue;}
 
-// присваивания присваивания
+// ГЇГ°ГЁГ±ГўГ ГЁГўГ Г­ГЁГї ГЇГ°ГЁГ±ГўГ ГЁГўГ Г­ГЁГї
 TQuaternion& TQuaternion::operator = (const TQuaternion& rvalue)
 {
     if(this!=&rvalue)
@@ -947,7 +945,7 @@ TQuaternion TQuaternion::toReturnQ(const TMatrix& A) const
 		catch (std::exception& ex)
 		{
             ex.what();
-            std::cout << "не восстанавливает кватерниона с Л0=0" <<std::endl;
+            std::cout << "Г­ГҐ ГўГ®Г±Г±ГІГ Г­Г ГўГ«ГЁГўГ ГҐГІ ГЄГўГ ГІГҐГ°Г­ГЁГ®Г­Г  Г± Г‹0=0" <<std::endl;
 			TQuaternion Q;
 			return Q;
 		}
